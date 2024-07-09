@@ -1,20 +1,52 @@
 console.log("Connected!")
 
-// Game is played in console...
-// method called playGame
-// Ask for input 
-// generate random number 1-3
-// Assign numbers to rock, paper, or scissors
-// conditionals...
+let userScore = 0
+let computerScore = 0
+let topScore = 0
 
-// let theGameWeapon = gameWeapon
+function startGame() {
+  
+  while (topScore < 3) {
+    playGame()
+    console.log(`Your score is ${userScore}, and the computer's score is ${computerScore}`)
+  }
+  if (userScore === 3) {
+    console.log("Congratulations, you win!") 
+  } else if (computerScore === 3) {
+    console.log("Tough luck! You lost. Womp womp")
+  } else {
+    console.log("Something... seems.... to... have... gone... wronnnngggggg................ ")
+  }
+}
 
-function playGame(weapon = "rock") {
+function playGame() {
+  calcScore()
+  let weapon = getWeapon()
   let userWeapon = weapon.toLowerCase()
   console.log(`You chose ${userWeapon}`)
   let computerWeapon = gameWeapon()
   console.log(`The computer chose ${computerWeapon}`)
   battle(userWeapon, computerWeapon)
+}
+
+function calcScore(result) {
+  if (result === "win") {
+    userScore += 1 
+  } else if (result === "lose") {
+    computerScore += 1
+  } else {
+    return
+  }
+  highScore()
+}
+
+function highScore() {
+  topScore = Math.max(userScore, computerScore)
+}
+
+function getWeapon() {
+  let weapon = prompt("What weapon do you choose?")
+  return weapon
 }
 
 function battle(userWeapon, computerWeapon) {
@@ -25,9 +57,11 @@ function battle(userWeapon, computerWeapon) {
         break
       } else if (computerWeapon === "paper") {
         console.log("You lose!")
+        calcScore("lose")
         break
       } else {
         console.log("You win!")
+        calcScore("win")
         break
       }
     case "paper":
@@ -36,9 +70,11 @@ function battle(userWeapon, computerWeapon) {
         break
       } else if (computerWeapon === "scissors") {
         console.log("You lose!")
+        calcScore("lose")
         break
       } else {
         console.log("You win!")
+        calcScore("win")
         break
       }
     case "scissors":
@@ -47,9 +83,11 @@ function battle(userWeapon, computerWeapon) {
         break
       } else if (computerWeapon === "rock") {
         console.log("You lose!")
+        calcScore("lose")
         break
       } else {
         console.log("You win!")
+        calcScore("win")
         break
       }
     default:
@@ -72,5 +110,5 @@ function gameWeapon () {
 }
 
 function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+  return Math.floor(Math.random() * max)
 }
