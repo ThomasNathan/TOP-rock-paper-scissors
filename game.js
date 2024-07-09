@@ -9,7 +9,8 @@ console.log("Connected!")
 
 // let theGameWeapon = gameWeapon
 
-function playGame(userWeapon = "rock") {
+function playGame(weapon = "rock") {
+  let userWeapon = weapon.toLowerCase()
   console.log(`You chose ${userWeapon}`)
   let computerWeapon = gameWeapon()
   console.log(`The computer chose ${computerWeapon}`)
