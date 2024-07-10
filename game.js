@@ -20,7 +20,6 @@ function startGame() {
 }
 
 function playGame() {
-  calcScore()
   let weapon = getWeapon()
   let userWeapon = weapon.toLowerCase()
   console.log(`You chose ${userWeapon}`)
