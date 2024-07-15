@@ -1,31 +1,64 @@
 console.log("Connected!")
 
+document.addEventListener("DOMContentLoaded", () => {
+  const rock = document.querySelector("#rock");
+  const paper = document.querySelector("#paper");
+  const scissors = document.querySelector("#scissors");
+
+  rock.addEventListener("click", (e) => {
+    playGame("rock");
+    // console.log("Rock clicked");
+  });
+
+  paper.addEventListener("click", (e) => {
+    playGame("paper");
+    // console.log("paper clicked");
+  });
+
+  scissors.addEventListener("click", (e) => {
+   playGame("scissors");
+    // console.log("Scissors clicked");
+  })
+});
+
 let userScore = 0
 let computerScore = 0
 let topScore = 0
 
-function startGame() {
-  
-  while (topScore < 3) {
-    playGame()
-    console.log(`Your score is ${userScore}, and the computer's score is ${computerScore}`)
-  }
-  if (userScore === 3) {
-    console.log("Congratulations, you win!") 
-  } else if (computerScore === 3) {
-    console.log("Tough luck! You lost. Womp womp")
+// function startGame() {
+function score() {
+  const gameUpdate = document.querySelector("#gameUpdate");
+  const content = document.createElement("p");
+
+  if (topScore < 5) {
+    generateText(`Your score is ${userScore}, and the computer's score is ${computerScore}`)
+  } else if (userScore === 5) {
+    generateText("Congratulations, you win!") 
+  } else if (computerScore === 5) {
+    generateText("Tough luck! You lost. Womp womp")
   } else {
-    console.log("Something... seems.... to... have... gone... wronnnngggggg................ ")
+    generateText("Something... seems.... to... have... gone... wronnnngggggg................ ")
   }
 }
 
-function playGame() {
-  let weapon = getWeapon()
-  let userWeapon = weapon.toLowerCase()
-  console.log(`You chose ${userWeapon}`)
+function generateText(message){
+  const gameUpdate = document.querySelector("#gameUpdate");
+  const content = document.createElement("p");
+
+  // gameUpdate.deletecon
+
+  content.innerText=message;
+  gameUpdate.appendChild(content);
+}
+
+function playGame(weapon) {
+  let userWeapon = weapon
+  
+  generateText(`You chose ${userWeapon}`)
   let computerWeapon = gameWeapon()
-  console.log(`The computer chose ${computerWeapon}`)
-  battle(userWeapon, computerWeapon)
+  generateText(`The computer chose ${computerWeapon}`)
+  battle(userWeapon, computerWeapon);
+  score();
 }
 
 function calcScore(result) {
@@ -43,23 +76,18 @@ function highScore() {
   topScore = Math.max(userScore, computerScore)
 }
 
-function getWeapon() {
-  let weapon = prompt("What weapon do you choose?")
-  return weapon
-}
-
 function battle(userWeapon, computerWeapon) {
   switch (userWeapon) {
     case "rock": 
       if (computerWeapon === "rock") {
-        console.log("It's a tie!")
+        generateText("It's a tie!")
         break
       } else if (computerWeapon === "paper") {
-        console.log("You lose!")
+        generateText("You lose!")
         calcScore("lose")
         break
       } else {
-        console.log("You win!")
+        generateText("You win!")
         calcScore("win")
         break
       }
@@ -68,29 +96,29 @@ function battle(userWeapon, computerWeapon) {
         console.log("It's a tie!")
         break
       } else if (computerWeapon === "scissors") {
-        console.log("You lose!")
+        generateText("You lose!")
         calcScore("lose")
         break
       } else {
-        console.log("You win!")
+        generateText("You win!")
         calcScore("win")
         break
       }
     case "scissors":
       if (computerWeapon === "scissors") {
-        console.log("It's a tie!")
+        generateText("It's a tie!")
         break
       } else if (computerWeapon === "rock") {
-        console.log("You lose!")
+        generateText("You lose!")
         calcScore("lose")
         break
       } else {
-        console.log("You win!")
+        generateText("You win!")
         calcScore("win")
         break
       }
     default:
-      console.log("Sorry, you need to pick 'rock', 'paper', or scissors' to play the game.")
+      generateText("Sorry, you need to pick 'rock', 'paper', or scissors' to play the game.")
   }
 }
 
